@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breeze View - Sh.Narudhoo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #d4af37;
+            --primary-dark: #b8941f;
+            --secondary: #2c3e50;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --gray: #6c757d;
+            --success: #28a745;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #fefefe;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1rem;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background-color: #1a2530;
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary);
+            margin: 15px auto;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                url('images/my-background.jpg') no-repeat center center/cover;
+            color: white;
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        /* Menu Section */
+        .menu-categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+            gap: 10px;
+        }
+
+        .category-btn {
+            padding: 10px 20px;
+            background-color: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .category-btn.active, .category-btn:hover {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .menu-item {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .menu-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-item-img {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .menu-item-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .menu-item:hover .menu-item-img img {
+            transform: scale(1.05);
+        }
+
+        .menu-item-content {
+            padding: 20px;
+        }
+
+        .menu-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .menu-item-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .menu-item-price {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .menu-item-desc {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .menu-item-code {
+            font-size: 0.8rem;
+            color: var(--gray);
+            background-color: #f5f5f5;
+            padding: 3px 8px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .duration-badge {
+            font-size: 0.7rem;
+            color: var(--gray);
+            background-color: #f0f0f0;
+            padding: 3px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        /* About Section */
+        .about {
+            background-color: #f8f9fa;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-img {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-text h2 {
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .contact-icon {
+            background-color: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-form {
+            background-color: #f8f9fa;
+            padding: 30px;
+            border-radius: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            font-family: 'Poppins', sans-serif;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        .map-container {
+            height: 400px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h3 {
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-col h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+
+        .footer-col p {
+            margin-bottom: 15px;
+            opacity: 0.8;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+        }
+
+        /* GST Notice */
+        .gst-notice {
+            text-align: center;
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        /* Form Messages */
+        .form-message {
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .form-message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .form-message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .menu-items {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 992px) {
+            .about-content, .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .menu-items {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: white;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 50px;
+                transition: var(--transition);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+            
+            .menu-items {
+                grid-template-columns: 1fr;
+            }
+            
+            .menu-categories {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+            
+            .category-btn {
+                white-space: nowrap;
+            }
+            
+            .contact-form {
+                padding: 20px;
+            }
+            
+            .map-container {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .menu-item-img {
+                height: 180px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 1.6rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">Breeze <span>View</span></a>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Breeze View Restaurant</h1>
+                <p>Experience exquisite dining with breathtaking views at Sh.Narudhoo</p>
+                <a href="#menu" class="btn">View Our Menu</a>
+                <a href="#contact" class="btn btn-secondary">Make Reservation</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="section" id="menu">
+        <div class="container">
+            <h2 class="section-title">Our Menu</h2>
+            <div class="menu-categories" id="menuCategories">
+                <!-- Categories will be generated by JavaScript -->
+            </div>
+            <div class="menu-items" id="menuItems">
+                <!-- Menu items will be generated by JavaScript -->
+            </div>
+            <div class="gst-notice">
+                <p><strong>Note:</strong> All prices include 8% GST as per the updated menu.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-img">
+    <img src="images/my-background1.jpg" alt="Our Story Image">
+                    <h2>Our Story</h2>
+                    <p>Welcome to Breeze View Restaurant, where culinary excellence meets breathtaking scenery. Located at Sh.Narudhoo, we've been serving delicious meals with a view since our establishment.</p>
+                    <p>Our chefs combine traditional recipes with modern techniques to create unforgettable dining experiences. We take pride in using the freshest ingredients and delivering exceptional service to every guest.</p>
+                    <p>Whether you're joining us for a romantic dinner, family celebration, or business lunch, we promise an atmosphere of warmth and sophistication.</p>
+                    <a href="#contact" class="btn">Visit Us Today</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact & Reservations</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h3>Address</h3>
+                            <p>Sh.Narudhoo, Maldives</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <h3>Phone</h3>
+                            <p>9253535</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h3>Email</h3>
+                            <p>breezeview2024@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <h3>Opening Hours</h3>
+                            <p>Everyday: 5:30 AM - 12:00 AM</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <div class="form-message" id="formMessage"></div>
+                    <form id="reservationForm">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" class="form-control" id="phone" placeholder="Your Phone" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="date" class="form-control" id="date" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="time" class="form-control" id="time" required>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" id="guests" required>
+                                <option value="" disabled selected>Number of Guests</option>
+                                <option value="1">1 Person</option>
+                                <option value="2">2 People</option>
+                                <option value="3">3 People</option>
+                                <option value="4">4 People</option>
+                                <option value="5">5+ People</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" id="message" placeholder="Special Requests (Optional)" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-secondary" style="width: 100%;">Make Reservation</button>
+                    </form>
+                </div>
+            </div>
+            <div class="map-container">
+                <iframe src="https://maps.app.goo.gl/7dsxPP9512yLVpFt9?g_st=ipc" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>Breeze View</h3>
+                    <p>Experience fine dining with breathtaking views at Sh.Narudhoo. We offer a wide variety of dishes from local favorites to international cuisine.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-tripadvisor"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#menu">Menu</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Sh.Narudhoo, Maldives</p>
+                    <p><i class="fas fa-phone"></i> 9253535</p>
+                    <p><i class="fas fa-envelope"></i> breezeview2024@gmail.com</p>
+                    <p><i class="fas fa-clock"></i> Everyday: 7:00 AM - 12:00 AM</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Breeze View Restaurant. All Rights Reserved. | All prices include 8% GST</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Complete Menu Data from PDF with all items
+        const menuData = {
+            "Tea & Coffee": {
+                duration: "05-10 minutes",
+                items: [
+                    { code: "101", name: "Lavazza Black", price: "25", desc: "Premium black coffee", image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "102", name: "Lavazza Espresso", price: "25", desc: "Italian espresso", image: "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "103", name: "Lavazza Espresso (Double)", price: "50", desc: "Double shot of Italian espresso", image: "https://images.unsplash.com/photo-1511537190424-bbbab87ac5eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "104", name: "Lavazza Milk", price: "35", desc: "Coffee with milk", image: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "105", name: "Lavazza Cappuccino", price: "35", desc: "Italian cappuccino", image: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "106", name: "Lavazza Hot Chocolate", price: "35", desc: "Rich hot chocolate", image: "https://images.unsplash.com/photo-1542995470-870e12e7e14f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "107", name: "Ily Black", price: "25", desc: "Premium black coffee", image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "108", name: "Ily Espresso (Single)", price: "25", desc: "Single shot espresso", image: "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "109", name: "Ily Espresso (Double)", price: "50", desc: "Double shot espresso", image: "https://images.unsplash.com/photo-1511537190424-bbbab87ac5eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "110", name: "Ily Cappuccino", price: "35", desc: "Italian cappuccino", image: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "111", name: "Ily Milk", price: "35", desc: "Coffee with milk", image: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "112", name: "Black Coffee (Half)", price: "7", desc: "Half portion black coffee", image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "113", name: "Black coffee (Full)", price: "12", desc: "Full portion black coffee", image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "114", name: "Milk Coffee (half)", price: "8", desc: "Half portion coffee with milk", image: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "115", name: "Milk Coffee (Full)", price: "10", desc: "Full portion coffee with milk", image: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "116", name: "Yeye Packet Coffee", price: "8", desc: "Traditional packet coffee", image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "117", name: "Yeye packet (Hard)", price: "12", desc: "Strong traditional packet coffee", image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "118", name: "Ice Coffee", price: "25", desc: "Chilled coffee beverage", image: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "119", name: "Black Tea", price: "5", desc: "Classic black tea", image: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "120", name: "Dhiyaa kiru Coffee", price: "12", desc: "Traditional Maldivian coffee", image: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "121", name: "Bombay Tea", price: "20", desc: "Indian-style tea", image: "https://images.unsplash.com/photo-1571934811356-5cc061b6821f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "122", name: "Masala Tea", price: "20", desc: "Spiced Indian tea", image: "https://images.unsplash.com/photo-1571934811356-5cc061b6821f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "123", name: "Strawberry Tea", price: "20", desc: "Fruity strawberry tea", image: "https://images.unsplash.com/photo-1571934811356-5cc061b6821f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "124", name: "Cardamom Tea", price: "20", desc: "Tea with cardamom flavor", image: "https://images.unsplash.com/photo-1571934811356-5cc061b6821f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "125", name: "Cinnamon Tea", price: "20", desc: "Tea with cinnamon flavor", image: "https://images.unsplash.com/photo-1571934811356-5cc061b6821f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "126", name: "Lemon Tea", price: "20", desc: "Tea with lemon", image: "https://images.unsplash.com/photo-1571934811356-5cc061b6821f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "127", name: "Ginger Tea", price: "20", desc: "Tea with ginger", image: "https://images.unsplash.com/photo-1571934811356-5cc061b6821f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "128", name: "Ice lemon Tea", price: "35", desc: "Chilled lemon tea", image: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "129", name: "Bulkiru", price: "10", desc: "Traditional beverage", image: "https://images.unsplash.com/photo-1570197788417-0e82375c9371?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "130", name: "Ice Milk", price: "35", desc: "Chilled milk", image: "https://images.unsplash.com/photo-1570197788417-0e82375c9371?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "131", name: "Water 500ml", price: "7", desc: "Bottled water 500ml", image: "https://images.unsplash.com/photo-1548839149-851a5c8d1f6a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "132", name: "Water 1.5L", price: "15", desc: "Bottled water 1.5L", image: "https://images.unsplash.com/photo-1548839149-851a5c8d1f6a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "133", name: "Lemon Tea (Normal)", price: "10", desc: "Regular lemon tea", image: "https://images.unsplash.com/photo-1571934811356-5cc061b6821f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "134", name: "Ginger Tea (Normal)", price: "10", desc: "Regular ginger tea", image: "https://images.unsplash.com/photo-1571934811356-5cc061b6821f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "135", name: "Hot Milo", price: "15", desc: "Hot chocolate malt drink", image: "https://images.unsplash.com/photo-1570197788417-0e82375c9371?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "136", name: "Milk Tea", price: "15", desc: "Tea with milk", image: "https://images.unsplash.com/photo-1571934811356-5cc061b6821f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "137", name: "YeYe serial", price: "15", desc: "Traditional cereal drink", image: "https://images.unsplash.com/photo-1570197788417-0e82375c9371?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" }
+                ]
+            },
+            "Juices & Soft Drinks": {
+                duration: "",
+                items: [
+                    { code: "138", name: "Lime Juice Fresh", price: "35", desc: "Freshly squeezed lime juice", image: "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "139", name: "Apple Juice", price: "35", desc: "Fresh apple juice", image: "https://images.unsplash.com/photo-1613478223719-2ab802602423?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "140", name: "Orange Juice", price: "35", desc: "Fresh orange juice", image: "https://images.unsplash.com/photo-1613478223719-2ab802602423?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "141", name: "Pineapple Juice", price: "35", desc: "Fresh pineapple juice", image: "https://images.unsplash.com/photo-1570295470081-fc75c89d1bea?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "142", name: "Passion Fruit Juice", price: "35", desc: "Fresh passion fruit juice", image: "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "143", name: "Watermelon Juice", price: "35", desc: "Fresh watermelon juice", image: "https://images.unsplash.com/photo-1589984662646-e7f2f6198486?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "144", name: "Kurunbaa Fani", price: "35", desc: "Traditional fruit juice", image: "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "145", name: "Guava Juice", price: "35", desc: "Fresh guava juice", image: "https://images.unsplash.com/photo-1613478223719-2ab802602423?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "146", name: "Papaya Juice", price: "35", desc: "Fresh papaya juice", image: "https://images.unsplash.com/photo-1613478223719-2ab802602423?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "147", name: "Carrot Juice", price: "35", desc: "Fresh carrot juice", image: "https://images.unsplash.com/photo-1613478223719-2ab802602423?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "148", name: "Mango Juice", price: "35", desc: "Fresh mango juice", image: "https://images.unsplash.com/photo-1553279768-865429fa0078?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "149", name: "Sun quick Juice", price: "20", desc: "Mixed fruit juice", image: "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "150", name: "Ice milo", price: "35", desc: "Chilled chocolate malt drink", image: "https://images.unsplash.com/photo-1570197788417-0e82375c9371?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "151", name: "Coca Cola 500ml", price: "25", desc: "500ml Coca Cola", image: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "152", name: "Coca Cola 200ml", price: "20", desc: "200ml Coca Cola", image: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "153", name: "Sprite 200ml", price: "20", desc: "200ml Sprite", image: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "154", name: "Pepsi 200ml", price: "20", desc: "200ml Pepsi", image: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "155", name: "Zup 200ml", price: "20", desc: "200ml Zup", image: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "156", name: "Fanta Orange 500ml", price: "25", desc: "500ml Fanta Orange", image: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "157", name: "Fanta Strawberry 500ml", price: "25", desc: "500ml Fanta Strawberry", image: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "158", name: "Mountain Dew", price: "20", desc: "Mountain Dew", image: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "159", name: "Mirinda Orange", price: "20", desc: "Mirinda Orange", image: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "160", name: "Bitter Lemon", price: "20", desc: "Bitter Lemon", image: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "161", name: "XL Energy drink 150ml", price: "30", desc: "150ml XL Energy drink", image: "https://images.unsplash.com/photo-1603398938373-e54da0bb5e48?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "162", name: "XL Energy drink 250ml", price: "40", desc: "250ml XL Energy drink", image: "https://images.unsplash.com/photo-1603398938373-e54da0bb5e48?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "163", name: "Red Bull Energy Drink", price: "65", desc: "Red Bull Energy Drink", image: "https://images.unsplash.com/photo-1603398938373-e54da0bb5e48?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "164", name: "Khabisa", price: "40", desc: "Traditional beverage", image: "https://images.unsplash.com/photo-1570197788417-0e82375c9371?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" }
+                ]
+            },
+            "Milkshakes": {
+                duration: "05-10 minutes",
+                items: [
+                    { code: "165", name: "Chocolate Milkshake", price: "", desc: "Creamy chocolate milkshake", image: "https://images.unsplash.com/photo-1577803645773-f96470509666?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "166", name: "Strawberry Milkshake", price: "", desc: "Refreshing strawberry milkshake", image: "https://images.unsplash.com/photo-1626074353765-517f552733f2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "167", name: "Vanilla Milkshake", price: "", desc: "Classic vanilla milkshake", image: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "168", name: "Avocado Milkshake", price: "", desc: "Creamy avocado milkshake", image: "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "169", name: "Oreo Milkshake", price: "", desc: "Milkshake with Oreo cookies", image: "https://images.unsplash.com/photo-1577803645773-f96470509666?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "170", name: "Banana Milkshake", price: "", desc: "Creamy banana milkshake", image: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "171", name: "Coke float", price: "", desc: "Coke with ice cream", image: "https://images.unsplash.com/photo-1577803645773-f96470509666?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "172", name: "Ice Coffee with Ice Cream", price: "", desc: "Iced coffee with ice cream", image: "https://images.unsplash.com/photo-1577803645773-f96470509666?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "173", name: "Ice Milo with Ice Cream", price: "", desc: "Iced Milo with ice cream", image: "https://images.unsplash.com/photo-1577803645773-f96470509666?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" }
+                ]
+            },
+            "Ice Cream": {
+                duration: "",
+                items: [
+                    { code: "174", name: "Strawberry Single Scoop", price: "", desc: "Single scoop strawberry ice cream", image: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "175", name: "Vanilla Single Scoop", price: "", desc: "Single scoop vanilla ice cream", image: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "176", name: "Chocolate Single Scoop", price: "", desc: "Single scoop chocolate ice cream", image: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" }
+                ]
+            },
+            "Mojito Cocktail": {
+                duration: "",
+                items: [
+                    { code: "177", name: "Blue Lagoon Mojito", price: "", desc: "Refreshing blue mojito", image: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "178", name: "Pinacolado Mojito", price: "", desc: "Pina colada style mojito", image: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "179", name: "Mojito Cocktail Mint", price: "", desc: "Classic mint mojito", image: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "180", name: "Mojito Cocktail Mix berry", price: "", desc: "Mixed berry mojito", image: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "181", name: "Mojito Cocktail Strawberry", price: "", desc: "Strawberry mojito", image: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "182", name: "Mojito Cocktail Passion Fruit", price: "", desc: "Passion fruit mojito", image: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "183", name: "Mojito Cocktail Black Current", price: "", desc: "Black currant mojito", image: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "184", name: "Mojito Cocktail blue curacao", price: "", desc: "Blue curacao mojito", image: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "185", name: "Bull bluster (Red bull)", price: "", desc: "Red bull cocktail", image: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "186", name: "Breeze View Passiflora", price: "", desc: "Special passion fruit cocktail", image: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "187", name: "Sunset Orange", price: "", desc: "Orange sunset cocktail", image: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "188", name: "Fruit Punch", price: "", desc: "Mixed fruit punch", image: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" }
+                ]
+            },
+            "Short Eats": {
+                duration: "",
+                items: [
+                    { code: "189", name: "Short eats", price: "", desc: "Assorted short eats", image: "https://images.unsplash.com/photo-1551782450-17144efb9c50?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "190", name: "Boiled Egg", price: "", desc: "Boiled egg", image: "https://images.unsplash.com/photo-1593618998160-e34014e757b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "191", name: "Sausage", price: "", desc: "Sausage", image: "https://images.unsplash.com/photo-1551782450-17144efb9c50?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "192", name: "Cream Bun", price: "", desc: "Cream filled bun", image: "https://images.unsplash.com/photo-1551782450-17144efb9c50?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "193", name: "Biscuits", price: "", desc: "Assorted biscuits", image: "https://images.unsplash.com/photo-1551782450-17144efb9c50?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "194", name: "Bileth Ari (Nuts)", price: "", desc: "Mixed nuts", image: "https://images.unsplash.com/photo-1551782450-17144efb9c50?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" }
+                ]
+            },
+            "Breakfast": {
+                duration: "20-60 minutes",
+                items: [
+                    { code: "250", name: "Disc Mashuni", price: "55", desc: "Traditional Maldivian breakfast dish", image: "https://images.unsplash.com/photo-1551782450-17144efb9c50?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "251", name: "Roshi Mashuni (Barabo/Faith/Aluvi)", price: "55", desc: "Flatbread with fish mixture", image: "https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "252", name: "Roshi Mashuni (5 Roshi)", price: "55", desc: "Five pieces of flatbread with fish mixture", image: "https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "253", name: "Disc Rihaakuru (5 Roshi)", price: "55", desc: "Five pieces of flatbread with fish paste", image: "https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "254", name: "Roshi Kulhimas (5 Roshi)", price: "55", desc: "Five pieces of flatbread with tuna mixture", image: "https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "255", name: "Continental Breakfast", price: "55", desc: "Classic continental breakfast", image: "https://images.unsplash.com/photo-1551782450-17144efb9c50?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "256", name: "Roshi", price: "3", desc: "Traditional Maldivian flatbread", image: "https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "257", name: "Disc", price: "10", desc: "Traditional Maldivian bread", image: "https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "258", name: "Paratha (Ready made)", price: "15", desc: "Ready-made layered flatbread", image: "https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "259", name: "Normal Omelet", price: "20", desc: "Classic egg omelet", image: "https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "260", name: "Cheese Omelet", price: "35", desc: "Omelet with cheese filling", image: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "261", name: "Sausage Omelet", price: "35", desc: "Omelet with sausage", image: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "262", name: "Masala Omelet", price: "35", desc: "Spiced Indian-style omelet", image: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "263", name: "Scrambled egg", price: "35", desc: "Fluffy scrambled eggs", image: "https://images.unsplash.com/photo-1593618998160-e34014e757b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" }
+                ]
+            },
+            "Salads & Soups": {
+                duration: "20-45 minutes",
+                items: [
+                    { code: "264", name: "Normal Salads", price: "55", desc: "Fresh garden salad", image: "https://images.unsplash.com/photo-1540420773420-3366772f4999?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "265", name: "Tuna Salads", price: "55", desc: "Salad with fresh tuna", image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "266", name: "Chicken Salads", price: "55", desc: "Salad with grilled chicken", image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "400", name: "Tuna Noodles Soup", price: "55", desc: "Noodle soup with tuna", image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "401", name: "Chicken Noodles Soup", price: "55", desc: "Noodle soup with chicken", image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "402", name: "Chicken & Mushroom Soup", price: "55", desc: "Creamy soup with chicken and mushrooms", image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "403", name: "Chicken Soup", price: "55", desc: "Classic chicken soup", image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" }
+                ]
+            },
+            "Pizza": {
+                duration: "",
+                items: [
+                    { code: "268", name: "Tuna Pizza", price: "120", desc: "Pizza with tuna topping", image: "https://images.unsplash.com/photo-1604068549290-dea0e4a305ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "269", name: "Chicken Pizza", price: "120", desc: "Pizza with chicken topping", image: "https://images.unsplash.com/photo-1595708684082-a173bb3a06c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "270", name: "Beef Pizza", price: "120", desc: "Pizza with beef topping", image: "https://images.unsplash.com/photo-1595708684082-a173bb3a06c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "271", name: "Sausage Pizza", price: "120", desc: "Pizza with sausage", image: "https://images.unsplash.com/photo-1595708684082-a173bb3a06c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "272", name: "Chili Chicken Pizza", price: "120", desc: "Spicy chicken pizza", image: "https://images.unsplash.com/photo-1595708684082-a173bb3a06c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "273", name: "Chicken and Mushroom Pizza", price: "120", desc: "Pizza with chicken and mushrooms", image: "https://images.unsplash.com/photo-1595708684082-a173bb3a06c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "274", name: "Mix Pizza", price: "120", desc: "Pizza with assorted toppings", image: "https://images.unsplash.com/photo-1595708684082-a173bb3a06c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "275", name: "Tandoori Chicken Pizza", price: "120", desc: "Pizza with tandoori chicken", image: "https://images.unsplash.com/photo-1595708684082-a173bb3a06c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" }
+                ]
+            },
+            "Sandwiches & Burgers": {
+                duration: "",
+                items: [
+                    { code: "276", name: "Tuna submarine", price: "70", desc: "Submarine sandwich with tuna", image: "https://images.unsplash.com/photo-1553979459-d2229ba7433b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "277", name: "Chicken Submarine", price: "70", desc: "Submarine sandwich with chicken", image: "https://images.unsplash.com/photo-1553979459-d2229ba7433b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "278", name: "Beef Submarine", price: "70", desc: "Submarine sandwich with beef", image: "https://images.unsplash.com/photo-1553979459-d2229ba7433b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "279", name: "Mix Submarine", price: "85", desc: "Submarine with mixed fillings", image: "https://images.unsplash.com/photo-1553979459-d2229ba7433b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "280", name: "Tandoori Submarine", price: "85", desc: "Submarine with tandoori chicken", image: "https://images.unsplash.com/photo-1553979459-d2229ba7433b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "281", name: "Chicken Burger", price: "70", desc: "Classic chicken burger", image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "282", name: "Crispy Chicken Burger", price: "75", desc: "Crispy fried chicken burger", image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "283", name: "Beef Burger", price: "70", desc: "Classic beef burger", image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "284", name: "Fish and Chips", price: "75", desc: "Fried fish with chips", image: "https://images.unsplash.com/photo-1579208027247-10c46c31a2c8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "285", name: "Chicken and Chips", price: "75", desc: "Fried chicken with chips", image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "286", name: "Chips Portion", price: "30", desc: "Portion of french fries", image: "https://images.unsplash.com/photo-1579208027247-10c46c31a2c8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "287", name: "Tuna Sandwich", price: "30", desc: "Sandwich with tuna filling", image: "https://images.unsplash.com/photo-1553979459-d2229ba7433b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "288", name: "Toast Sandwich", price: "35", desc: "Toasted sandwich", image: "https://images.unsplash.com/photo-1553979459-d2229ba7433b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "289", name: "Chicken Sandwich", price: "35", desc: "Sandwich with chicken filling", image: "https://images.unsplash.com/photo-1553979459-d2229ba7433b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "290", name: "Chicken Toast Sandwich", price: "40", desc: "Toasted chicken sandwich", image: "https://images.unsplash.com/photo-1553979459-d2229ba7433b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "291", name: "Beef Sandwich", price: "35", desc: "Sandwich with beef filling", image: "https://images.unsplash.com/photo-1553979459-d2229ba7433b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "292", name: "Beef Toast Sandwich", price: "40", desc: "Toasted beef sandwich", image: "https://images.unsplash.com/photo-1553979459-d2229ba7433b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "293", name: "Tuna Club Sandwich", price: "70", desc: "Club sandwich with tuna", image: "https://images.unsplash.com/photo-1553979459-d2229ba7433b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "294", name: "Chicken Club Sandwich", price: "70", desc: "Club sandwich with chicken", image: "https://images.unsplash.com/photo-1553979459-d2229ba7433b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "295", name: "Beef Club Sandwich", price: "70", desc: "Club sandwich with beef", image: "https://images.unsplash.com/photo-1553979459-d2229ba7433b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" }
+                ]
+            },
+            "Spaghetti & Pasta": {
+                duration: "",
+                items: [
+                    { code: "296", name: "Spaghetti carbonara", price: "70", desc: "Creamy spaghetti carbonara", image: "https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "297", name: "Spaghetti Bolognese", price: "70", desc: "Spaghetti with meat sauce", image: "https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "298", name: "Spaghetti Aglio Olio", price: "70", desc: "Spaghetti with garlic and oil", image: "https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "299", name: "Tuna Pasta", price: "70", desc: "Pasta with tuna", image: "https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "300", name: "Chicken Pasta", price: "70", desc: "Pasta with chicken", image: "https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "301", name: "Beef Pasta", price: "70", desc: "Pasta with beef", image: "https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "302", name: "White Sauce Pasta", price: "70", desc: "Pasta with white sauce", image: "https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" }
+                ]
+            },
+            "Main Dishes": {
+                duration: "30-60 minutes",
+                items: [
+                    { code: "303", name: "Tuna fried Rice", price: "60", desc: "Fried rice with tuna", image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "304", name: "Chicken Fried Rice", price: "60", desc: "Fried rice with chicken", image: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "305", name: "Valhomas Fried Rice", price: "60", desc: "Fried rice with valhomas", image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "306", name: "Beef Fried Rice", price: "60", desc: "Fried rice with beef", image: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "307", name: "Mix Fried Rice", price: "80", desc: "Fried rice with mixed ingredients", image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "308", name: "Nasi Goreng", price: "70", desc: "Indonesian fried rice", image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "309", name: "Breeze View special Sea Food mix rice", price: "140", desc: "Special seafood rice mix", image: "https://images.unsplash.com/photo-1559737558-2f5a35f4523b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "310", name: "Sea Food Rice", price: "110", desc: "Rice with assorted seafood", image: "https://images.unsplash.com/photo-1559737558-2f5a35f4523b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "311", name: "Vegetable Rice", price: "60", desc: "Fried rice with vegetables", image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "312", name: "Tuna Fried Noodles", price: "60", desc: "Fried noodles with tuna", image: "https://images.unsplash.com/photo-1552611052-33e04de081de?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "313", name: "Valhomas Fried Noodles", price: "60", desc: "Fried noodles with valhomas", image: "https://images.unsplash.com/photo-1552611052-33e04de081de?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "314", name: "Chicken Fried Noodles", price: "60", desc: "Fried noodles with chicken", image: "https://images.unsplash.com/photo-1552611052-33e04de081de?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "315", name: "Beef Fried Noodles", price: "60", desc: "Fried noodles with beef", image: "https://images.unsplash.com/photo-1552611052-33e04de081de?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "316", name: "Mix Fried Noodles", price: "80", desc: "Fried noodles with mixed ingredients", image: "https://images.unsplash.com/photo-1552611052-33e04de081de?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "317", name: "Bami goreng", price: "70", desc: "Indonesian fried noodles", image: "https://images.unsplash.com/photo-1552611052-33e04de081de?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "318", name: "Sea Food Noodles", price: "110", desc: "Noodles with assorted seafood", image: "https://images.unsplash.com/photo-1552611052-33e04de081de?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "319", name: "Breeze View Special Sea Food Mix Noodles", price: "140", desc: "Special seafood noodle mix", image: "https://images.unsplash.com/photo-1552611052-33e04de081de?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "320", name: "Lazagna", price: "170", desc: "Classic Italian lasagna", image: "https://images.unsplash.com/photo-1574894709920-11b28e7367e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "321", name: "Tuna Kohthuroshi", price: "60", desc: "Kohthuroshi with tuna", image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "322", name: "Chicken Kohthuroshi", price: "60", desc: "Kohthuroshi with chicken", image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "323", name: "Valhomas Kohthuroshi", price: "60", desc: "Kohthuroshi with valhomas", image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "324", name: "Beef Kohthuroshi", price: "60", desc: "Kohthuroshi with beef", image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "325", name: "Mix Kohthuroshi", price: "80", desc: "Kohthuroshi with mixed ingredients", image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "326", name: "Sea food Kohthuroshi", price: "110", desc: "Kohthuroshi with seafood", image: "https://images.unsplash.com/photo-1559737558-2f5a35f4523b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "327", name: "Breeze View Special Mix Sea Food Kohthuroshi", price: "140", desc: "Special seafood kohthuroshi mix", image: "https://images.unsplash.com/photo-1559737558-2f5a35f4523b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "328", name: "Chili Chicken (portion)", price: "70", desc: "Spicy chicken portion", image: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "329", name: "Grilled Chicken (portion)", price: "70", desc: "Grilled chicken portion", image: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "330", name: "Devilled Fish (portion)", price: "70", desc: "Spicy fish portion", image: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "331", name: "Devilled Chicken (portion)", price: "70", desc: "Spicy chicken portion", image: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "404", name: "Mongolian Rice", price: "100", desc: "Mongolian style rice", image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" }
+                ]
+            },
+            "Indian Dishes": {
+                duration: "60-105 minutes",
+                items: [
+                    { code: "332", name: "Kadai Chicken (portion)", price: "70", desc: "Chicken cooked in kadai", image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "333", name: "Butter Chicken (portion)", price: "70", desc: "Creamy butter chicken", image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "334", name: "Chicken Curry (portion)", price: "70", desc: "Classic chicken curry", image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "335", name: "Chicken Masala (portion)", price: "70", desc: "Chicken with masala spices", image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "336", name: "Chicken Tikka Masala (portion)", price: "70", desc: "Chicken tikka in masala sauce", image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "337", name: "Chicken Biryani", price: "95", desc: "Fragrant chicken biryani", image: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "338", name: "Tandoori Chicken (Half)", price: "130", desc: "Half tandoori chicken", image: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "339", name: "Tandoori Chicken (Full)", price: "200", desc: "Full tandoori chicken", image: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "340", name: "Paratha chef Special", price: "12", desc: "Special layered flatbread", image: "https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "341", name: "Normal Naan chef Special", price: "15", desc: "Special traditional naan", image: "https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "342", name: "Butter Naan chef Special", price: "20", desc: "Special butter naan", image: "https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "343", name: "Garlic Naan chef Special", price: "20", desc: "Special garlic naan", image: "https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "344", name: "Chicken 65 (portion)", price: "70", desc: "Spicy chicken 65", image: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" }
+                ]
+            },
+            "Kids Corner": {
+                duration: "",
+                items: [
+                    { code: "345", name: "Chicken Nuggets with French Fries", price: "70", desc: "Chicken nuggets with fries", image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "346", name: "Fish Finger with French Fries", price: "70", desc: "Fish fingers with fries", image: "https://images.unsplash.com/photo-1579208027247-10c46c31a2c8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "347", name: "Chicken Finger with French Fries", price: "70", desc: "Chicken fingers with fries", image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" }
+                ]
+            },
+            "Sizzling Dishes": {
+                duration: "",
+                items: [
+                    { code: "405", name: "Chicken Sizzler Rice", price: "150", desc: "Sizzling chicken rice", image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "406", name: "Chicken Garlic Sizzler Rice", price: "150", desc: "Sizzling garlic chicken rice", image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "407", name: "Chicken Steak Sizzler Rice", price: "150", desc: "Sizzling chicken steak rice", image: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" },
+                    { code: "408", name: "Beef Steak Sizzler Rice", price: "150", desc: "Sizzling beef steak rice", image: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" }
+                ]
+            }
+        };
+
+        // DOM Elements
+        const menuCategoriesEl = document.getElementById('menuCategories');
+        const menuItemsEl = document.getElementById('menuItems');
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        const reservationForm = document.getElementById('reservationForm');
+        const formMessage = document.getElementById('formMessage');
+
+        // Generate Menu Categories
+        function generateMenuCategories() {
+            const categories = Object.keys(menuData);
+            
+            categories.forEach((category, index) => {
+                const button = document.createElement('button');
+                button.className = `category-btn ${index === 0 ? 'active' : ''}`;
+                button.textContent = category;
+                button.setAttribute('data-category', category);
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    document.querySelectorAll('.category-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    // Add active class to clicked button
+                    button.classList.add('active');
+                    // Generate menu items for selected category
+                    generateMenuItems(category);
+                });
+                menuCategoriesEl.appendChild(button);
+            });
+        }
+
+        // Generate Menu Items
+        function generateMenuItems(category) {
+            // Clear current items
+            menuItemsEl.innerHTML = '';
+            
+            // Get items for selected category
+            const categoryData = menuData[category];
+            const items = categoryData.items;
+            
+            // Generate item cards
+            items.forEach((item, index) => {
+                const itemEl = document.createElement('div');
+                itemEl.className = 'menu-item';
+                
+                let priceDisplay = item.price ? `MVR ${item.price}` : 'Price on request';
+                
+                itemEl.innerHTML = `
+                    <div class="menu-item-img">
+                        <img src="${item.image}" alt="${item.name}" loading="lazy">
+                    </div>
+                    <div class="menu-item-content">
+                        <div class="menu-item-header">
+                            <h3 class="menu-item-name">${item.name}</h3>
+                            <div class="menu-item-price">${priceDisplay}</div>
+                        </div>
+                        <p class="menu-item-desc">${item.desc}</p>
+                        <div>
+                            <span class="menu-item-code">Code: ${item.code}</span>
+                            ${categoryData.duration ? `<span class="duration-badge">${categoryData.duration}</span>` : ''}
+                        </div>
+                    </div>
+                `;
+                menuItemsEl.appendChild(itemEl);
+            });
+        }
+
+        // Mobile Menu Toggle
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Form submission with email functionality
+        reservationForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                date: document.getElementById('date').value,
+                time: document.getElementById('time').value,
+                guests: document.getElementById('guests').value,
+                message: document.getElementById('message').value
+            };
+            
+            // Validate form
+            if (!formData.name || !formData.email || !formData.phone || !formData.date || !formData.time || !formData.guests) {
+                showMessage('Please fill in all required fields', 'error');
+                return;
+            }
+            
+            // Show loading state
+            const submitBtn = reservationForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Processing...';
+            submitBtn.disabled = true;
+            
+            // Simulate email sending (in a real implementation, you would use a server-side script)
+            setTimeout(() => {
+                // This is where you would normally send the data to your server
+                // For demonstration, we'll just show a success message
+                
+                // Prepare email content
+                const emailContent = `
+                    New Reservation Request from Breeze View Website:
+                    
+                    Name: ${formData.name}
+                    Email: ${formData.email}
+                    Phone: ${formData.phone}
+                    Date: ${formData.date}
+                    Time: ${formData.time}
+                    Guests: ${formData.guests}
+                    Special Requests: ${formData.message || 'None'}
+                    
+                    Received: ${new Date().toLocaleString()}
+                `;
+                
+                // In a real implementation, you would send this to your server
+                console.log('Reservation details:', emailContent);
+                
+                // Show success message
+                showMessage('Thank you for your reservation! We will contact you shortly to confirm.', 'success');
+                
+                // Reset form
+                reservationForm.reset();
+                
+                // Restore button
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        });
+
+        // Show form messages
+        function showMessage(message, type) {
+            formMessage.textContent = message;
+            formMessage.className = `form-message ${type}`;
+            formMessage.style.display = 'block';
+            
+            // Hide message after 5 seconds
+            setTimeout(() => {
+                formMessage.style.display = 'none';
+            }, 5000);
+        }
+
+        // Handle image loading errors
+        document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('error', function(e) {
+                if (e.target.tagName === 'IMG') {
+                    e.target.src = 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80';
+                }
+            }, true);
+        });
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            generateMenuCategories();
+            generateMenuItems(Object.keys(menuData)[0]);
+            
+            // Set minimum date to today
+            const dateInput = document.getElementById('date');
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.min = today;
+        });
+    </script>
+</body>
+</html>
